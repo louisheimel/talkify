@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
-import {Layout} from 'antd';
+import {Layout, Input, Button} from 'antd';
 import './App.css';
-import 'antd/dist/antd.css';
-import 'antd/lib/layout/style/css';
+import 'antd/lib/layout';
+import './LoginPage.css';
 
-const {Header, Footer, Content, Sider} = Layout;
+const {Header, Footer,
+  //  Content
+  } = Layout;
+
 
 class App extends Component {
   render() {
     return (
         <Layout>
-          <Header>Header</Header>
+          <Header>Talkify</Header>
           <Layout>
-            <Content>main content</Content>
+            <Input size="large" placeholder="Username"/>
+            <Input size="large" placeholder="Password"/>
+
+          <Button size="large">Submit</Button>
           </Layout>
-          <Footer>footer</Footer>
-        </Layout>
+          <Footer><a href="https://github.com/louisheimel/talkify">Github</a></Footer>
+          </Layout>
     );
   }
 }
