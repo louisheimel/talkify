@@ -1,3 +1,5 @@
+@import '~antd/dist/antd.css';
+
 .ant-layout {
     min-height: 100%;
 }
@@ -13,7 +15,7 @@ h1 {
     margin: 20px 0 10px 0;
 }
 
-.ant-input, .ant-btn {
+.ant-input, .ant-btn, .link {
     width: 66%;
     margin: 10px auto;
 }
