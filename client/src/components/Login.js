@@ -15,8 +15,6 @@ class Login extends Component {
 
   handleInputChange = e => {
     const {name, value} = e.target;
-
-    console.log(name, value)
     this.setState({data: {...this.state.data, [name]: value}});
   }
 
