@@ -12,9 +12,7 @@ class App extends Component {
         <Layout>
           <Header>Header</Header>
           <Layout>
-            <Sider>left sidebar</Sider>
             <Content>main content</Content>
-            <Sider>right sidebar</Sider>
           </Layout>
           <Footer>footer</Footer>
         </Layout>
