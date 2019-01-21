@@ -4,7 +4,9 @@
   "private": true,
   "dependencies": {
     "antd": "^3.12.4",
+    "customize-cra": "^0.2.9",
     "react": "^16.7.0",
+    "react-app-rewired": "^2.0.2",
     "react-dom": "^16.7.0",
     "react-scripts": "2.1.3"
   },
