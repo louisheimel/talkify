@@ -25,3 +25,6 @@ yarn-error.log*
 
 # swapfiles
 *.swp
+
+# install
+/install.sh
