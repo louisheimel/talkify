@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Layout from 'antd/lib/layout';
+import {Layout} from 'antd';
 import './App.css';
 import 'antd/dist/antd.css';
 import 'antd/lib/layout/style/css';
