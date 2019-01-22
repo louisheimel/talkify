@@ -10,3 +10,7 @@
 1. reselect
 2. apollo
 3. redux-saga
+
+## TODO
+
+1. refactor entry point
