@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Layout } from "antd";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import { Login, SignUp } from "./components";
+import { Login, SignUp, Home } from "./components";
 
 import "./App.css";
 import "antd/lib/layout";
@@ -32,6 +32,7 @@ class App extends Component {
           <Layout>
             <Route exact path="/" component={Login} />
             <Route path="/signup" component={SignUp} />
+            <Route path="/home" component={Home} />
           </Layout>
           <Footer>
             <a href="https://github.com/louisheimel/talkify">Github</a>
