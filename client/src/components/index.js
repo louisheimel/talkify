@@ -1,8 +1,5 @@
 import SignUp from "./SignUp";
 import Login from "./Login";
-import '../LoginPage.css';
+import "../LoginPage.css";
 
-export {
-    SignUp,
-    Login
-}
+export { SignUp, Login };

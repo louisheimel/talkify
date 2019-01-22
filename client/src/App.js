@@ -1,19 +1,18 @@
-import React, { Component } from 'react';
-import {Layout} from 'antd';
-import { BrowserRouter as Router, Route} from "react-router-dom";
+import React, { Component } from "react";
+import { Layout } from "antd";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import {
-  Login,
-  SignUp
-} from "./components";
+import { Login, SignUp } from "./components";
 
-import './App.css';
-import 'antd/lib/layout';
-import './LoginPage.css';
+import "./App.css";
+import "antd/lib/layout";
+import "./LoginPage.css";
 
-const {Header, Footer,
+const {
+  Header,
+  Footer
   //  Content
-  } = Layout;
+} = Layout;
 
 class App extends Component {
   render() {
@@ -25,7 +24,9 @@ class App extends Component {
             <Route exact path="/" component={Login} />
             <Route path="/signup" component={SignUp} />
           </Layout>
-          <Footer><a href="https://github.com/louisheimel/talkify">Github</a></Footer>
+          <Footer>
+            <a href="https://github.com/louisheimel/talkify">Github</a>
+          </Footer>
         </Layout>
       </Router>
     );
