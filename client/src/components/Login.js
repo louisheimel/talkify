@@ -11,18 +11,6 @@ import {
 
 class Login extends Component {
   state = {}
-  submitLoginData = e => {
-    const {data} = this.state;
-    console.log(data);
-    axios.post('/api/login', data || {})
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
-  }
-
-  handleInputChange = e => {
-    const {name, value} = e.target;
-    this.setState({data: {...this.state.data, [name]: value}});
-  }
 
   render() {
     const {
