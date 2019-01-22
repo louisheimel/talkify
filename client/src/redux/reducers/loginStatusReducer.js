@@ -5,7 +5,7 @@ const defaultState = {
 };
 
 function loginStatusReducer(state = defaultState, action) {
-  const { type, payload } = action;
+  const { type } = action;
 
   switch (type) {
     case LOGIN_SUCCESS:
