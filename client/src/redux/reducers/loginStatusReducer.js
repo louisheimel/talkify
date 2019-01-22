@@ -5,12 +5,12 @@ const defaultState = {
 };
 
 function loginStatusReducer(state = defaultState, action) {
-  const { type } = action;
+  const { type, payload } = action;
 
   switch (type) {
     case LOGIN_SUCCESS:
       console.log("login success!");
-      return { loggedIn: true };
+      return { ...state, loggedIn: true, loggedInUser: payload };
     case LOGIN_FAILURE:
       console.log("login failure...");
       return { loggedIn: false };

@@ -34,15 +34,17 @@ export const updateSignupConfirmPassword = password => ({
   payload: password
 });
 
-export const loginSuccess = data => ({
-  type: LOGIN_SUCCESS
+export const loginSuccess = username => ({
+  type: LOGIN_SUCCESS,
+  payload: username
 });
 
-export const loginFailure = error => ({
+export const loginFailure = () => ({
   type: LOGIN_FAILURE
 });
 
 export const requestLogin = loginData => {
+  console.log("inside request login, loginData is: ", loginData);
   return dispatch => {
     axios
       .post("http://localhost:3001/api/login", loginData)

@@ -36,7 +36,10 @@ class Login extends Component {
           name="password"
           password={password}
         />
-        <Button size="large" onClick={() => requestLogin(this.state.data)}>
+        <Button
+          size="large"
+          onClick={() => requestLogin({ username, password })}
+        >
           Submit
         </Button>
         <Link className="link" to="/signup">
