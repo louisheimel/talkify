@@ -1,9 +1,13 @@
+import axios from "axios";
+
 import { 
     UPDATE_LOGIN_USERNAME,
     UPDATE_LOGIN_PASSWORD,
     UPDATE_SIGNUP_USERNAME,
     UPDATE_SIGNUP_PASSWORD,
-    UPDATE_SIGNUP_CONFIRM_PASSWORD
+    UPDATE_SIGNUP_CONFIRM_PASSWORD,
+    LOGIN_SUCCESS,
+    LOGIN_FAILURE
 } from "../actionTypes";
 
 export const updateLoginUsername = username => (
@@ -39,3 +43,27 @@ export const updateSignupConfirmPassword = password => (
         payload: password
     }
 );
+
+export const loginSuccess = data => (
+    {
+        type: LOGIN_SUCCESS
+    }
+);
+
+export const loginFailure = error => (
+    {
+        type: LOGIN_FAILURE
+    }
+);
+
+export const requestLogin = (loginData) => {
+    return dispatch => {
+        axios.post("http://localhost:3001/api/login", loginData)
+        .then(data => {
+            dispatch(loginSuccess(data));
+        })
+        .catch(err => {
+            dispatch(loginFailure(err));
+        })
+    }
+}

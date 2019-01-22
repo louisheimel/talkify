@@ -1,4 +1,5 @@
 import {UPDATE_LOGIN_USERNAME, UPDATE_LOGIN_PASSWORD} from '../actionTypes';
+
 const defaultState = {loginCredentials: {
     username: '',
     password: ''

@@ -5,7 +5,8 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import { 
   updateLoginPassword,
-  updateLoginUsername 
+  updateLoginUsername,
+  requestLogin 
 } from '../redux/actionCreators';
 
 class Login extends Component {
@@ -28,13 +29,14 @@ class Login extends Component {
       handleUsernameChange, 
       handlePasswordChange, 
       username, 
-      password
+      password,
+      requestLogin
     } = this.props;
 
     return <Fragment>
       <Input size="large" placeholder="Username" onChange={handleUsernameChange} name="username" value={username}/>
       <Input size="large" placeholder="Password" onChange={handlePasswordChange} name="password" password={password}/>
-      <Button size="large" onClick={this.submitLoginData}>Submit</Button>
+      <Button size="large" onClick={() => requestLogin(this.state.data)}>Submit</Button>
       <Link className="link" to="/signup">Don't have an account?  Sign up here!</Link>
     </Fragment>;
   }
@@ -47,6 +49,7 @@ export default connect(
   }),
   dispatch => ({
     handleUsernameChange: e => dispatch(updateLoginUsername(e.target.value)),
-    handlePasswordChange: e => dispatch(updateLoginPassword(e.target.value))
+    handlePasswordChange: e => dispatch(updateLoginPassword(e.target.value)),
+    requestLogin: (loginData) => dispatch(requestLogin(loginData))
   }) 
 )(Login);
