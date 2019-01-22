@@ -1,17 +1,18 @@
-import {combineReducers, createStore, applyMiddleware} from 'redux';
-import thunk from 'redux-thunk';
+import { combineReducers, createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 
-import loginPageReducer from './reducers/loginPageReducer';
-import signupPageReducer from './reducers/signupPageReducer';
-import loginStatusReducer from './reducers/loginStatusReducer';
+import loginPageReducer from "./reducers/loginPageReducer";
+import signupPageReducer from "./reducers/signupPageReducer";
+import loginStatusReducer from "./reducers/loginStatusReducer";
+
+import { loadState, saveState } from "./localStorage";
+
+const persistedState = loadState();
 
 const rootReducer = combineReducers({
-    login: loginPageReducer,
-    signup: signupPageReducer,
-    loginStatus: loginStatusReducer
+  login: loginPageReducer,
+  signup: signupPageReducer,
+  loginStatus: loginStatusReducer
 });
 
-export default createStore(
-    rootReducer,
-    applyMiddleware(thunk)
-);
+export default createStore(rootReducer, applyMiddleware(thunk), persistedState);
