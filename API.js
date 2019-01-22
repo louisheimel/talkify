@@ -175,12 +175,19 @@ const initAPI = () =>
   setAuth()
     .then(getInfoAndWorksheets)
     .then(() => ({
-      logIn({ username }) {
+      logIn({ username, password }) {
         console.log("user is: ", username);
 
         sheet.getRows({}, (err, rows) => {
+          if (err) {
+            throw err;
+          }
           const user = rows.filter(row => row.username === username)[0];
-          user.isloggedin = "TRUE";
+          if (user.password === password) {
+            user.isloggedin = "TRUE";
+          } else {
+            throw new Error("incorrect password!");
+          }
           user.save(() => {
             console.log("user successfully logged in!");
           });

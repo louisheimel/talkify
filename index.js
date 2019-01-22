@@ -30,10 +30,15 @@ app.post("/api/login", (req, res) => {
   API.initAPI().then(api =>
     api
       .logIn(req.body)
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
+      .then(data => {
+        user.isloggedin = "TRUE";
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err);
+        res.sendStatus(401);
+      })
   );
-  res.sendStatus(200);
 });
 
 app.listen(process.env.PORT || 3001);
