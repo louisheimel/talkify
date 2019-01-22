@@ -1,4 +1,5 @@
-import {combineReducers, createStore} from 'redux';
+import {combineReducers, createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
 
 import loginPageReducer from './reducers/loginPageReducer';
 import signupPageReducer from './reducers/signupPageReducer';
@@ -8,4 +9,7 @@ const rootReducer = combineReducers({
     signup: signupPageReducer
 });
 
-export default createStore(rootReducer);
+export default createStore(
+    rootReducer,
+    applyMiddleware(thunk)
+);
