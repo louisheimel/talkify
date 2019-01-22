@@ -26,7 +26,7 @@ app.post("/api/signup", (req, res) => {
 app.post("/api/login", (req, res) => {
   console.log(req.body);
   console.log("hello");
-  res.sendStatus(Math.random() > 0.5 ? 200 : 422);
+  res.sendStatus(200);
 });
 
 app.listen(process.env.PORT || 3001);
