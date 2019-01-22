@@ -1,25 +1,34 @@
-import React, { Component } from 'react';
-import { Layout } from 'antd';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import React, { Component } from "react";
+import { Layout } from "antd";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import { Login, SignUp } from './components';
+import { Login, SignUp } from "./components";
 
-import './App.css';
-import 'antd/lib/layout';
-import './LoginPage.css';
+import "./App.css";
+import "antd/lib/layout";
+import "./LoginPage.css";
 
-const {
-  Header,
-  Footer,
-  //  Content
-} = Layout;
+const { Header, Footer } = Layout;
 
 class App extends Component {
   render() {
     return (
       <Router>
         <Layout>
-          <Header>Talkify</Header>
+          <Header>
+            <Link
+              style={{
+                textDecoration: "none",
+                userSelect: "none",
+                color: "#fff"
+              }}
+              className="site-header"
+              to="/"
+            >
+              Talkify
+            </Link>
+          </Header>
+
           <Layout>
             <Route exact path="/" component={Login} />
             <Route path="/signup" component={SignUp} />
