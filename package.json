@@ -11,6 +11,7 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
+    "eslint": "^5.12.1",
     "express": "^4.16.4",
     "global": "^4.3.2",
     "nodemon": "^1.18.9",
