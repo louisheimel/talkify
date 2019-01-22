@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {Input, Button} from 'antd';
 import {Link} from "react-router-dom";
-import axios from 'axios';
 import {connect} from 'react-redux';
 import { 
   updateLoginPassword,
