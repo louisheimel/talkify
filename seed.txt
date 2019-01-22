@@ -1,0 +1,6 @@
+id	username	password	isLoggedIn
+1	alice	alicepw	FALSE
+2	bob	bobpw	FALSE
+3	carl	carlpw	FALSE
+4	dave	davepw	FALSE
+5	edgar	edgarpw	FALSE

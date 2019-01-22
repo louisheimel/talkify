@@ -28,3 +28,9 @@ yarn-error.log*
 
 # install
 /install.sh
+
+# dotenv
+.env
+
+# google credentials
+/talkify-fbd34c562ff2.json

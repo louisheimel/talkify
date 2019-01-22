@@ -2,6 +2,7 @@ const express = require("express"),
   bodyParser = require("body-parser");
 
 const app = express();
+const API = require("./API");
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -26,6 +27,12 @@ app.post("/api/signup", (req, res) => {
 app.post("/api/login", (req, res) => {
   console.log(req.body);
   console.log("hello");
+  API.initAPI().then(api =>
+    api
+      .logIn(req.body)
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
+  );
   res.sendStatus(200);
 });
 
