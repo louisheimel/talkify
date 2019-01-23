@@ -79,6 +79,7 @@ class Home extends Component {
       justifyContent: "flex-start",
       position: "absolute",
       left: "0",
+      right: "0",
       top: "0",
       bottom: "47px",
       margin: "0 30px",
