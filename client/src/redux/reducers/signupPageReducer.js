@@ -13,6 +13,7 @@ const defaultStore = {
 };
 
 function signupPageReducer(state = defaultStore, action) {
+  console.log("inside signupPageReducer, state is: ", state);
   const { type, payload } = action;
   switch (type) {
     case UPDATE_SIGNUP_USERNAME:

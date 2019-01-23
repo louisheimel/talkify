@@ -34,7 +34,7 @@ class Login extends Component {
           placeholder="Password"
           onChange={handlePasswordChange}
           name="password"
-          password={password}
+          value={password}
         />
         <Button
           size="large"
