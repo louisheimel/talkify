@@ -22,7 +22,6 @@ class SignUp extends Component {
       handlePasswordChange,
       handleConfirmPasswordChange
     } = this.props;
-    const data = { username, password, confirmPassword };
     return (
       <Fragment>
         <Input
@@ -64,14 +63,11 @@ class SignUp extends Component {
 }
 
 export default connect(
-  state => (
-    console.log(state),
-    {
-      username: state.signup.signupCredentials.username,
-      password: state.signup.signupCredentials.password,
-      confirmPassword: state.signup.signupCredentials.confirmPassword
-    }
-  ),
+  state => ({
+    username: state.signup.signupCredentials.username,
+    password: state.signup.signupCredentials.password,
+    confirmPassword: state.signup.signupCredentials.confirmPassword
+  }),
   dispatch => ({
     handleUsernameChange: username => dispatch(updateSignupUsername(username)),
     handlePasswordChange: password => dispatch(updateSignupPassword(password)),

@@ -21,29 +21,20 @@ export const updateLoginPassword = password => ({
   payload: password
 });
 
-export const updateSignupUsername = username => (
-  console.log("updating signup username", username),
-  {
-    type: UPDATE_SIGNUP_USERNAME,
-    payload: username
-  }
-);
+export const updateSignupUsername = username => ({
+  type: UPDATE_SIGNUP_USERNAME,
+  payload: username
+});
 
-export const updateSignupPassword = password => (
-  console.log("updating signup password", password),
-  {
-    type: UPDATE_SIGNUP_PASSWORD,
-    payload: password
-  }
-);
+export const updateSignupPassword = password => ({
+  type: UPDATE_SIGNUP_PASSWORD,
+  payload: password
+});
 
-export const updateSignupConfirmPassword = password => (
-  console.log("confirming password", password),
-  {
-    type: UPDATE_SIGNUP_CONFIRM_PASSWORD,
-    payload: password
-  }
-);
+export const updateSignupConfirmPassword = password => ({
+  type: UPDATE_SIGNUP_CONFIRM_PASSWORD,
+  payload: password
+});
 
 export const loginSuccess = username => ({
   type: LOGIN_SUCCESS,
@@ -55,7 +46,6 @@ export const loginFailure = () => ({
 });
 
 export const requestLogin = loginData => {
-  console.log("inside request login, loginData is: ", loginData);
   return dispatch => {
     axios
       .post("http://localhost:3001/api/login", loginData)
@@ -77,7 +67,6 @@ export const signupFailure = error => ({
 });
 
 export const requestSignup = signupData => {
-  console.log("inside request signup, signupData is: ", signupData);
   return dispatch => {
     axios
       .post("http://localhost:3001/api/signup", signupData)
