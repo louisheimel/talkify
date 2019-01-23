@@ -25,7 +25,6 @@ class SignUp extends Component {
     const data = { username, password, confirmPassword };
     return (
       <Fragment>
-        <code>{JSON.stringify(data)}</code>
         <Input
           size="large"
           placeholder="Username"
