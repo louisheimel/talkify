@@ -1,0 +1,12 @@
+workspace
+    channels
+    direct message thread
+
+a workspace has many channels
+a workspace has many direct messages
+
+a user can join a channel
+a user can send a direct message to another user in the same workspace
+
+a channel has many users
+a direct message thread has many users
