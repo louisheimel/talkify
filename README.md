@@ -14,3 +14,4 @@
 ## TODO
 
 1. refactor entry point
+2. integrate rich text editing with (Draft.js)[https://draftjs.org/]
