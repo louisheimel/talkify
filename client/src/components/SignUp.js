@@ -49,6 +49,7 @@ class SignUp extends Component {
             getValFromEvent,
             handleConfirmPasswordChange
           )}
+          value={confirmPassword}
         />
         <Button
           size="large"
