@@ -43,13 +43,11 @@ class Home extends Component {
   };
 
   handleInputChange = e => {
+    const { value: val } = e.target;
     this.setState(
       {
         ...this.state,
-        inputValue: e.target.value
-          .split("")
-          .filter(e => e !== "\n")
-          .join("")
+        inputValue: val.slice(-1) === "\n" ? val.slice(0, -1) : val
       },
       () =>
         console.log(
@@ -84,12 +82,14 @@ class Home extends Component {
       top: "0",
       bottom: "47px",
       margin: "0 30px",
+      padding: "25px 5px",
       overflow: "auto"
     };
 
     const inputStyles = {
       margin: "0 30px",
       width: "100%",
+      height: "32px",
       resize: "none",
       alignSelf: "flex-end"
     };
