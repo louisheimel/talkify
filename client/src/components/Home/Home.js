@@ -33,10 +33,10 @@ class Home extends Component {
     return (
       <Layout style={layoutStyles}>
         <Sider collapsed={collapsed} style={siderStyles}>
-          <Threads threads={threads} />
+          <Threads threads={threads} showList={!collapsed} />
           <Toggler toggle={this.toggle} collapsed={collapsed} />
         </Sider>
-        <Content onClick={e => alert("content clicked")}>Main Content</Content>
+        <Content>Main Content</Content>
       </Layout>
     );
   }
