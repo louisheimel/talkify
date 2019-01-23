@@ -5,7 +5,9 @@ import loginPageReducer from "./reducers/loginPageReducer";
 import signupPageReducer from "./reducers/signupPageReducer";
 import loginStatusReducer from "./reducers/loginStatusReducer";
 
-import { loadState, saveState } from "./localStorage";
+import { loadState } from "./localStorage";
+
+// state can be saved with saveState method from local storage module
 
 const persistedState = loadState();
 

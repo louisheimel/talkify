@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import ThreadListItem from "./ThreadListItem";
-import "./ThreadListItem.css";
 
 class ThreadList extends Component {
   render() {

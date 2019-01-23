@@ -1,12 +1,10 @@
-import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
+import React, { Component } from "react";
 
-import { Layout, Icon } from "antd";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Layout } from "antd";
 
 import Toggler from "./Toggler";
 import Threads from "./Threads";
-const { Sider, Content, Footer, Button } = Layout;
+const { Sider, Content } = Layout;
 
 class Home extends Component {
   state = {};
