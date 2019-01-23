@@ -72,18 +72,19 @@ class Home extends Component {
       justifyContent: "center",
       position: "relative",
       width: "100%",
-      boxSizing: "border-box"
+      boxSizing: "border-box",
+      overflow: "hidden"
     };
 
     const messagesStyles = {
-      display: "flex",
-      flexWrap: "wrap",
       fontWeight: "bold",
       justifyContent: "flex-start",
-      width: "100%",
       position: "absolute",
       left: "0",
-      top: "0"
+      top: "0",
+      bottom: "47px",
+      margin: "0 30px",
+      overflow: "auto"
     };
 
     const inputStyles = {
