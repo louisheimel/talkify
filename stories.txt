@@ -10,3 +10,14 @@ a user can send a direct message to another user in the same workspace
 
 a channel has many users
 a direct message thread has many users
+
+Google Spreadsheets:
+user
+workspace
+user_workspace
+user_channel
+user_dm
+workspace_channel
+workspace_dm
+channel
+direct_messages
