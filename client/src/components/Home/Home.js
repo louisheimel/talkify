@@ -8,6 +8,18 @@ import Threads from "./Threads";
 const { TextArea } = Input;
 const { Sider, Content } = Layout;
 
+class Messages extends Component {
+  render() {
+    const { messages, style } = this.props;
+    return (
+      <div style={style}>
+        {messages.map(message => (
+          <p style={{ width: "100%" }}>{message}</p>
+        ))}
+      </div>
+    );
+  }
+}
 class Home extends Component {
   state = {
     inputValue: "",
@@ -56,10 +68,22 @@ class Home extends Component {
 
     const contentStyles = {
       display: "flex",
+      flexWrap: "wrap",
       justifyContent: "center",
       position: "relative",
       width: "100%",
       boxSizing: "border-box"
+    };
+
+    const messagesStyles = {
+      display: "flex",
+      flexWrap: "wrap",
+      fontWeight: "bold",
+      justifyContent: "flex-start",
+      width: "100%",
+      position: "absolute",
+      left: "0",
+      top: "0"
     };
 
     const inputStyles = {
@@ -82,6 +106,7 @@ class Home extends Component {
           <Toggler toggle={this.toggle} collapsed={collapsed} />
         </Sider>
         <Content style={contentStyles}>
+          <Messages style={messagesStyles} messages={this.state.messages} />
           <TextArea
             style={inputStyles}
             autosize
