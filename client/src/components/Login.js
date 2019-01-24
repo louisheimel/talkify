@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Input, Button } from "antd";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   updateLoginPassword,
@@ -17,10 +17,13 @@ class Login extends Component {
       handlePasswordChange,
       username,
       password,
-      requestLogin
+      requestLogin,
+      loggedIn
     } = this.props;
-
-    return (
+    console.log(loggedIn);
+    return loggedIn ? (
+      <Redirect to="/home" />
+    ) : (
       <Fragment>
         <Input
           size="large"
@@ -51,10 +54,14 @@ class Login extends Component {
 }
 
 export default connect(
-  state => ({
-    username: state.login.loginCredentials.username,
-    password: state.login.loginCredentials.password
-  }),
+  state => (
+    console.log(state.loginStatus, " is loginStatus"),
+    {
+      username: state.login.loginCredentials.username,
+      password: state.login.loginCredentials.password,
+      loggedIn: state.loginStatus.loggedIn
+    }
+  ),
   dispatch => ({
     handleUsernameChange: e => dispatch(updateLoginUsername(e.target.value)),
     handlePasswordChange: e => dispatch(updateLoginPassword(e.target.value)),
