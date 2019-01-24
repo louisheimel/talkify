@@ -27,18 +27,14 @@ app.post("/api/signup", (req, res) => {
 app.post("/api/login", (req, res) => {
   console.log(req.body);
   console.log("hello");
-  API.initAPI().then(api =>
-    api
-      .logIn(req.body)
-      .then(data => {
-        user.isloggedin = "TRUE";
-        console.log(data);
-      })
-      .catch(err => {
-        console.log(err);
-        res.sendStatus(401);
-      })
-  );
+  API.initAPI()
+    .then(api => {
+      api.logIn(req.body);
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(401);
+    });
 });
 
 app.listen(process.env.PORT || 3001);
