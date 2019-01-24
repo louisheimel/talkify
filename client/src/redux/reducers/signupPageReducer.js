@@ -1,14 +1,17 @@
 import {
   UPDATE_SIGNUP_USERNAME,
   UPDATE_SIGNUP_PASSWORD,
-  UPDATE_SIGNUP_CONFIRM_PASSWORD
+  UPDATE_SIGNUP_CONFIRM_PASSWORD,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAILURE
 } from "../actionTypes";
 
 const defaultStore = {
   signupCredentials: {
     username: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    signedIn: false
   }
 };
 
@@ -33,6 +36,18 @@ function signupPageReducer(state = defaultStore, action) {
           confirmPassword: payload
         }
       };
+    case SIGNUP_SUCCESS:
+      // TODO: redirect to home page
+      return {
+        ...state,
+        signupCredentials: {
+          ...state.signupCredentials,
+          signedIn: true
+        }
+      };
+    case SIGNUP_FAILURE:
+      // TODO: show alert
+      break;
     default:
       return state;
   }
