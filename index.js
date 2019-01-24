@@ -2,6 +2,9 @@ const express = require("express"),
   bodyParser = require("body-parser");
 
 const app = express();
+const http = require("http").Server(app);
+const io = require("socket.io")(http);
+
 const API = require("./API");
 
 app.use(function(req, res, next) {
@@ -59,4 +62,7 @@ app.post("/api/login", (req, res) => {
     });
 });
 
-app.listen(process.env.PORT || 3001);
+io.on("connection", client => {
+  console.log("Client connected", client);
+});
+http.listen(process.env.PORT || 3001);
