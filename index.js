@@ -55,7 +55,9 @@ const listenForLogin = socket =>
     console.log("user data from socket: ", data);
     API.initAPI()
       .then(api => {
-        api.logIn(data);
+        api.logIn(data).then(() => {
+          socket.emit("successful login");
+        });
       })
       .catch(err => {
         console.log(err);
@@ -67,5 +69,9 @@ io.on("connection", socket => {
   socket.emit("news", { hello: "world" });
   listenForLogin(socket);
   console.log("Client connected");
+});
+
+io.on("disconnect", () => {
+  console.log("user disconnected");
 });
 http.listen(process.env.PORT || 3001);

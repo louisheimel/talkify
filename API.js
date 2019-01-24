@@ -64,20 +64,25 @@ const initAPI = () =>
     .then(getInfoAndWorksheets)
     .then(() => ({
       logIn({ username, password }) {
-        console.log("user is: ", username);
+        return new Promise((resolve, reject) => {
+          console.log("user is: ", username);
 
-        sheet.getRows({}, (err, rows) => {
-          if (err) {
-            throw err;
-          }
-          const user = rows.filter(row => row.username === username)[0];
-          if (user.password === password) {
-            user.isloggedin = "TRUE";
-          } else {
-            throw new Error("incorrect password!");
-          }
-          user.save(() => {
-            console.log("user successfully logged in!");
+          sheet.getRows({}, (err, rows) => {
+            if (err) {
+              reject("user was not logged in");
+              throw err;
+            }
+            const user = rows.filter(row => row.username === username)[0];
+            console.log(user.password, password);
+            if (user.password === password) {
+              user.isloggedin = "TRUE";
+              user.save(() => {
+                console.log("user successfully logged in!");
+                resolve("user successfully logged in!");
+              });
+            } else {
+              reject("incorrect password");
+            }
           });
         });
       },

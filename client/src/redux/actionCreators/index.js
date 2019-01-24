@@ -59,6 +59,7 @@ export const requestLogin = loginData => {
     const waitForSuccessfulLogin = socket => {
       return new Promise((resolve, reject) => {
         socket.emit("user login", loginData);
+        setTimeout(() => reject("login failure"), 5000);
         socket.on("successful login", () => {
           resolve(socket);
         });
@@ -67,7 +68,8 @@ export const requestLogin = loginData => {
     createSocketConnection()
       .then(waitForSuccessfulLogin)
       .then(() => {
-        dispatch(data => loginSuccess(data));
+        console.log("login was successful");
+        dispatch(() => loginSuccess());
       })
       .catch(err => dispatch(loginFailure(err)));
   };
