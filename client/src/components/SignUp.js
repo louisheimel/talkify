@@ -26,57 +26,53 @@ class SignUp extends Component {
       handleSignupRequest
     } = this.props;
     return (
-      console.log("alert message is: ", alertMessage),
-      (
-        <Fragment>
-          {showAlertMessage && (
-            <Alert
-              type="error"
-              message={alertMessage}
-              style={{ fontWeight: "bold" }}
-              className="alert"
-              closable
-            />
+      <Fragment>
+        {showAlertMessage && (
+          <Alert
+            type="error"
+            message={alertMessage}
+            style={{ fontWeight: "bold" }}
+            className="alert"
+            closable
+          />
+        )}
+        <Input
+          size="large"
+          placeholder="Username"
+          onChange={pipe(
+            getValFromEvent,
+            handleUsernameChange
           )}
-          <Input
-            size="large"
-            placeholder="Username"
-            onChange={pipe(
-              getValFromEvent,
-              handleUsernameChange
-            )}
-            value={username}
-          />
-          <Input
-            size="large"
-            placeholder="Password"
-            onChange={pipe(
-              getValFromEvent,
-              handlePasswordChange
-            )}
-            value={password}
-          />
-          <Input
-            size="large"
-            placeholder="Confirm Password"
-            onChange={pipe(
-              getValFromEvent,
-              handleConfirmPasswordChange
-            )}
-            value={confirmPassword}
-          />
-          <Button
-            size="large"
-            onClick={() => (
-              console.log("requesting signup"),
-              handleSignupRequest({ username, password, confirmPassword })
-            )}
-          >
-            Submit
-          </Button>
-          ,
-        </Fragment>
-      )
+          value={username}
+        />
+        <Input
+          size="large"
+          placeholder="Password"
+          onChange={pipe(
+            getValFromEvent,
+            handlePasswordChange
+          )}
+          value={password}
+        />
+        <Input
+          size="large"
+          placeholder="Confirm Password"
+          onChange={pipe(
+            getValFromEvent,
+            handleConfirmPasswordChange
+          )}
+          value={confirmPassword}
+        />
+        <Button
+          size="large"
+          onClick={() =>
+            handleSignupRequest({ username, password, confirmPassword })
+          }
+        >
+          Submit
+        </Button>
+        ,
+      </Fragment>
     );
   }
 }
