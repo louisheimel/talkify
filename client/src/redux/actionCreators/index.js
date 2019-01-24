@@ -41,13 +41,10 @@ export const updateSignupConfirmPassword = password => ({
   payload: password
 });
 
-export const loginSuccess = username => (
-  console.log("login success action about to be dispatched"),
-  {
-    type: LOGIN_SUCCESS,
-    payload: username
-  }
-);
+export const loginSuccess = username => ({
+  type: LOGIN_SUCCESS,
+  payload: username
+});
 
 export const loginFailure = () => ({
   type: LOGIN_FAILURE
@@ -58,7 +55,6 @@ export const requestLogin = loginData => {
     createSocketConnection()
       .then(waitForSuccessfulLogin(loginData))
       .then(() => {
-        console.log("login was successful");
         dispatch(loginSuccess());
       })
       .catch(err => dispatch(loginFailure(err)));
