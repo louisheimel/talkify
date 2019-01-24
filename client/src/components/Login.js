@@ -20,7 +20,6 @@ class Login extends Component {
       requestLogin,
       loggedIn
     } = this.props;
-    console.log(loggedIn);
     return loggedIn ? (
       <Redirect to="/home" />
     ) : (
@@ -54,14 +53,11 @@ class Login extends Component {
 }
 
 export default connect(
-  state => (
-    console.log(state.loginStatus, " is loginStatus"),
-    {
-      username: state.login.loginCredentials.username,
-      password: state.login.loginCredentials.password,
-      loggedIn: state.loginStatus.loggedIn
-    }
-  ),
+  state => ({
+    username: state.login.loginCredentials.username,
+    password: state.login.loginCredentials.password,
+    loggedIn: state.loginStatus.loggedIn
+  }),
   dispatch => ({
     handleUsernameChange: e => dispatch(updateLoginUsername(e.target.value)),
     handlePasswordChange: e => dispatch(updateLoginPassword(e.target.value)),
