@@ -62,7 +62,19 @@ app.post("/api/login", (req, res) => {
     });
 });
 
-io.on("connection", client => {
-  console.log("Client connected", client);
+io.on("connection", socket => {
+  socket.emit("news", { hello: "world" });
+  socket.on("user login", data => {
+    console.log("user data from socket: ", data);
+    API.initAPI()
+      .then(api => {
+        api.logIn(data);
+      })
+      .catch(err => {
+        console.log(err);
+        socket.emit("login failure");
+      });
+  });
+  console.log("Client connected");
 });
 http.listen(process.env.PORT || 3001);

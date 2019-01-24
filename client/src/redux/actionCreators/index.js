@@ -1,4 +1,5 @@
 import axios from "axios";
+import io from "socket.io-client";
 
 import {
   UPDATE_LOGIN_USERNAME,
@@ -47,14 +48,28 @@ export const loginFailure = () => ({
 
 export const requestLogin = loginData => {
   return dispatch => {
-    axios
-      .post("http://localhost:3001/api/login", loginData)
-      .then(data => {
-        dispatch(loginSuccess(data));
-      })
-      .catch(err => {
-        dispatch(loginFailure(err));
+    const createSocketConnection = () =>
+      new Promise((resolve, reject) => {
+        const socket = io("http://localhost:3001");
+        socket.on("connect", () => {
+          resolve(socket);
+        });
       });
+
+    const waitForSuccessfulLogin = socket => {
+      return new Promise((resolve, reject) => {
+        socket.emit("user login", loginData);
+        socket.on("successful login", () => {
+          resolve(socket);
+        });
+      });
+    };
+    createSocketConnection()
+      .then(waitForSuccessfulLogin)
+      .then(() => {
+        dispatch(data => loginSuccess(data));
+      })
+      .catch(err => dispatch(loginFailure(err)));
   };
 };
 
