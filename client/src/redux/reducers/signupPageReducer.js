@@ -11,7 +11,10 @@ const defaultStore = {
     username: "",
     password: "",
     confirmPassword: "",
-    signedIn: false
+    // TODO: move signedIn property to loginStatusReducer
+    signedIn: false,
+    showAlertMessage: false,
+    alertMessage: "this is an awesome alert message"
   }
 };
 
@@ -47,7 +50,13 @@ function signupPageReducer(state = defaultStore, action) {
       };
     case SIGNUP_FAILURE:
       // TODO: show alert
-      break;
+      return {
+        ...state,
+        signupCredentials: {
+          ...state.signupCredentials,
+          showAlertMessage: true
+        }
+      };
     default:
       return state;
   }

@@ -21,8 +21,30 @@ app.get("/api", (req, res) => {
 });
 
 app.post("/api/signup", (req, res) => {
-  console.log(req.body);
-  res.sendStatus(200);
+  if (Object.keys(req.body).length === 0) {
+    console.log("empty request body");
+  }
+  const { confirmPassword, ...signupData } = req.body;
+  const { password } = signupData;
+  console.log(
+    "signupData is: ",
+    signupData,
+    "confirmPassword is: ",
+    confirmPassword
+  );
+  if (password === confirmPassword) {
+    API.initAPI()
+      .then(api => {
+        api.signUp(signupData);
+      })
+      .catch(err => {
+        console.log(err);
+        res.sendStatus(401);
+      });
+  } else {
+    console.log("something went wrong, req.body is: ", req.body);
+  }
+  // res.sendStatus(200);
 });
 app.post("/api/login", (req, res) => {
   console.log(req.body);
