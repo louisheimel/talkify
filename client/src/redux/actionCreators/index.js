@@ -1,5 +1,4 @@
 import axios from "axios";
-import io from "socket.io-client";
 
 import {
   UPDATE_LOGIN_USERNAME,
@@ -12,6 +11,11 @@ import {
   SIGNUP_SUCCESS,
   SIGNUP_FAILURE
 } from "../actionTypes";
+
+import {
+  createSocketConnection,
+  waitForSuccessfulLogin
+} from "../../socketSetup";
 
 export const updateLoginUsername = username => ({
   type: UPDATE_LOGIN_USERNAME,
@@ -48,25 +52,8 @@ export const loginFailure = () => ({
 
 export const requestLogin = loginData => {
   return dispatch => {
-    const createSocketConnection = () =>
-      new Promise((resolve, reject) => {
-        const socket = io("http://localhost:3001");
-        socket.on("connect", () => {
-          resolve(socket);
-        });
-      });
-
-    const waitForSuccessfulLogin = socket => {
-      return new Promise((resolve, reject) => {
-        socket.emit("user login", loginData);
-        setTimeout(() => reject("login failure"), 5000);
-        socket.on("successful login", () => {
-          resolve(socket);
-        });
-      });
-    };
     createSocketConnection()
-      .then(waitForSuccessfulLogin)
+      .then(waitForSuccessfulLogin(loginData))
       .then(() => {
         console.log("login was successful");
         dispatch(() => loginSuccess());
