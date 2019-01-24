@@ -49,21 +49,8 @@ app.post("/api/signup", (req, res) => {
   }
   // res.sendStatus(200);
 });
-app.post("/api/login", (req, res) => {
-  console.log(req.body);
-  console.log("hello");
-  API.initAPI()
-    .then(api => {
-      api.logIn(req.body);
-    })
-    .catch(err => {
-      console.log(err);
-      res.sendStatus(401);
-    });
-});
 
-io.on("connection", socket => {
-  socket.emit("news", { hello: "world" });
+const listenForLogin = socket =>
   socket.on("user login", data => {
     console.log("user data from socket: ", data);
     API.initAPI()
@@ -75,6 +62,10 @@ io.on("connection", socket => {
         socket.emit("login failure");
       });
   });
+
+io.on("connection", socket => {
+  socket.emit("news", { hello: "world" });
+  listenForLogin(socket);
   console.log("Client connected");
 });
 http.listen(process.env.PORT || 3001);
