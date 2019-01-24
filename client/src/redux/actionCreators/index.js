@@ -9,7 +9,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   SIGNUP_SUCCESS,
-  SIGNUP_FAILURE
+  SIGNUP_FAILURE,
+  LOG_OUT_USER
 } from "../actionTypes";
 
 import {
@@ -79,5 +80,16 @@ export const requestSignup = signupData => {
       .catch(err => {
         dispatch(signupFailure(err));
       });
+  };
+};
+
+export const logOutUser = () => ({
+  type: LOG_OUT_USER
+});
+
+export const logOut = () => {
+  return dispatch => {
+    dispatch(logOutUser());
+    // TODO: sever socket.io connection to server
   };
 };

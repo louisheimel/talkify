@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { Layout } from "antd";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 import { Login, SignUp, Home } from "./components";
+
+import { logOut } from "./redux/actionCreators";
 
 import "./App.css";
 import "antd/lib/layout";
@@ -15,7 +18,7 @@ class App extends Component {
     return (
       <Router>
         <Layout>
-          <Header>
+          <Header style={{ display: "flex", justifyContent: "space-between" }}>
             <Link
               style={{
                 textDecoration: "none",
@@ -26,6 +29,17 @@ class App extends Component {
               to="/"
             >
               Talkify
+            </Link>
+            <Link
+              style={{
+                textDecoration: "none",
+                userSelect: "none",
+                color: "#fff"
+              }}
+              to="/"
+              onClick={logOut}
+            >
+              Log Out
             </Link>
           </Header>
 
@@ -43,4 +57,7 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(
+  () => ({}),
+  dispatch => ({})
+)(App);
