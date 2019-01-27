@@ -59,5 +59,5 @@ class App extends Component {
 
 export default connect(
   () => ({}),
-  dispatch => ({})
+  dispatch => ({ handleLogOut: e => dispatch(logOut()) })
 )(App);

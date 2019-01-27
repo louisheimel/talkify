@@ -83,13 +83,21 @@ export const requestSignup = signupData => {
   };
 };
 
-export const logOutUser = () => ({
-  type: LOG_OUT_USER
-});
+export const logOutUser = () => (
+  console.log("inside logOutUser"),
+  {
+    type: LOG_OUT_USER
+  }
+);
 
 export const logOut = () => {
+  console.log("logging out");
   return dispatch => {
+    console.log("inside dispatch function");
     dispatch(logOutUser());
+
+    console.log("logging out user on client side");
+
     // TODO: sever socket.io connection to server
   };
 };
