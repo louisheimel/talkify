@@ -20,7 +20,7 @@ const { Header, Footer } = Layout;
 
 class App extends Component {
   render() {
-    const { logOut, loggedIn } = this.props;
+    const { handleLogOut, loggedIn } = this.props;
     return (
       <Router>
         <Layout>
@@ -44,7 +44,7 @@ class App extends Component {
                   color: "#fff"
                 }}
                 to="/"
-                onClick={logOut}
+                onClick={handleLogOut}
               >
                 Log Out
               </Link>
