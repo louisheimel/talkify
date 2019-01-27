@@ -15,3 +15,4 @@
 
 1. refactor entry point
 2. integrate rich text editing with (Draft.js)[https://draftjs.org/]
+3. save logged in user's name client side
