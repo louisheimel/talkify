@@ -1,4 +1,5 @@
-import { combineReducers, createStore, applyMiddleware } from "redux";
+import { combineReducers, createStore, applyMiddleware, compose } from "redux";
+
 import thunk from "redux-thunk";
 
 import loginPageReducer from "./reducers/loginPageReducer";
@@ -16,5 +17,15 @@ const rootReducer = combineReducers({
   signup: signupPageReducer,
   loginStatus: loginStatusReducer
 });
+const composeEnhancers =
+  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+      })
+    : compose;
 
-export default createStore(rootReducer, applyMiddleware(thunk), persistedState);
+const enhancer = composeEnhancers(
+  applyMiddleware(thunk)
+  // other store enhancers if any
+);
+export default createStore(rootReducer, persistedState, enhancer);
