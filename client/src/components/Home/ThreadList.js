@@ -1,21 +1,17 @@
 import React, { Component, Fragment } from "react";
 import { Dropdown, Menu } from "antd";
+import { connect } from "react-redux";
 import ThreadListItem from "./ThreadListItem";
-const menu = (
+const workspaceMenu = workspaces => (
   <Menu>
-    <Menu.Item key="0">
-      <a href="http://www.alipay.com/">1st menu item</a>
-    </Menu.Item>
-    <Menu.Item key="1">
-      <a href="http://www.taobao.com/">2nd menu item</a>
-    </Menu.Item>
-    <Menu.Divider />
-    <Menu.Item key="3">3rd menu item</Menu.Item>
+    {workspaces.map(workspace => (
+      <Menu.Item key={workspace}>{workspace}</Menu.Item>
+    ))}
   </Menu>
 );
 class ThreadList extends Component {
   render() {
-    const { threads, threadName, showList } = this.props;
+    const { threads, threadName, showList, workspaces } = this.props;
     console.log(threads, threadName, showList);
 
     const ulStyles = {
@@ -28,8 +24,8 @@ class ThreadList extends Component {
 
     const threadListItems = threads && threads.map(ThreadListItem);
     return threadName === "Work" ? (
-      <Dropdown overlay={menu} trigger={["hover"]}>
-        <p>Workspace</p>
+      <Dropdown overlay={workspaceMenu(workspaces)} trigger={["hover"]}>
+        <p>{threadName}</p>
       </Dropdown>
     ) : (
       // <Fragment>
@@ -76,4 +72,7 @@ class ThreadList extends Component {
   }
 }
 
-export default ThreadList;
+export default connect(
+  state => ({ workspaces: state.threads.workspace.options }),
+  dispatch => ({})
+)(ThreadList);
