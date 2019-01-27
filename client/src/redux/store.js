@@ -5,6 +5,7 @@ import thunk from "redux-thunk";
 import loginPageReducer from "./reducers/loginPageReducer";
 import signupPageReducer from "./reducers/signupPageReducer";
 import loginStatusReducer from "./reducers/loginStatusReducer";
+import threadsReducer from "./reducers/threadsReducer";
 
 import { loadState } from "./localStorage";
 
@@ -15,7 +16,8 @@ const persistedState = loadState();
 const rootReducer = combineReducers({
   login: loginPageReducer,
   signup: signupPageReducer,
-  loginStatus: loginStatusReducer
+  loginStatus: loginStatusReducer,
+  threadsReducer: threadsReducer
 });
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

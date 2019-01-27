@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import ThreadList from "./ThreadList";
 
 class Threads extends Component {
   render() {
-    const { threads, showList } = this.props;
+    const { threads, showList, threadName } = this.props;
 
     return Object.keys(threads).map(threadName => {
       switch (threadName) {
@@ -28,4 +30,7 @@ class Threads extends Component {
   }
 }
 
-export default Threads;
+export default connect(
+  state => ({}),
+  dispatch => ({})
+)(Threads);
