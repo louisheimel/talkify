@@ -1,11 +1,6 @@
 import React, { Component } from "react";
 import { Layout } from "antd";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { Login, SignUp, Home } from "./components";
