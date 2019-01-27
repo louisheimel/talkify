@@ -33,28 +33,18 @@ class Home extends Component {
   };
 
   handleMessage = e => {
-    this.setState(
-      {
-        messages: [...this.state.messages, e.target.value],
-        inputValue: ""
-      },
-      () => console.log(this.state.messages, this.state.inputValue)
-    );
+    this.setState({
+      messages: [...this.state.messages, e.target.value],
+      inputValue: ""
+    });
   };
 
   handleInputChange = e => {
     const { value: val } = e.target;
-    this.setState(
-      {
-        ...this.state,
-        inputValue: val.slice(-1) === "\n" ? val.slice(0, -1) : val
-      },
-      () =>
-        console.log(
-          this.state.inputValue,
-          " from inside handleInputChange method"
-        )
-    );
+    this.setState({
+      ...this.state,
+      inputValue: val.slice(-1) === "\n" ? val.slice(0, -1) : val
+    });
   };
   render() {
     const { collapsed } = this.state;
