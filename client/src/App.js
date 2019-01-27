@@ -36,30 +36,25 @@ class App extends Component {
             >
               Talkify
             </Link>
-            <Link
-              style={{
-                textDecoration: "none",
-                userSelect: "none",
-                color: "#fff"
-              }}
-              to="/"
-              onClick={logOut}
-            >
-              Log Out
-            </Link>
+            {loggedIn && (
+              <Link
+                style={{
+                  textDecoration: "none",
+                  userSelect: "none",
+                  color: "#fff"
+                }}
+                to="/"
+                onClick={logOut}
+              >
+                Log Out
+              </Link>
+            )}
           </Header>
 
           <Layout>
             <Route exact path="/" component={Login} />
             <Route path="/signup" component={SignUp} />
-            {loggedIn && <Route path="/home" component={Home} />}
-            <Route
-              exact
-              path="/home"
-              render={() =>
-                loggedIn ? <Redirect to="/home" /> : <Redirect to="/" />
-              }
-            />
+            <Route exact path="/home" component={loggedIn ? Home : Login} />
           </Layout>
           <Footer>
             <a href="https://github.com/louisheimel/talkify">Github</a>
@@ -71,7 +66,7 @@ class App extends Component {
 }
 
 export default connect(
-  state => (console.log(state), { loggedIn: state.loginStatus.loggedIn }),
+  state => ({ loggedIn: state.loginStatus.loggedIn }),
   dispatch => ({
     handleLogOut: e => dispatch(logOut())
   })
