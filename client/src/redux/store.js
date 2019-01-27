@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   login: loginPageReducer,
   signup: signupPageReducer,
   loginStatus: loginStatusReducer,
-  threadsReducer: threadsReducer
+  threads: threadsReducer
 });
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
