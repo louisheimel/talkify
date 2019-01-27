@@ -10,7 +10,8 @@ import {
   LOGIN_FAILURE,
   SIGNUP_SUCCESS,
   SIGNUP_FAILURE,
-  LOG_OUT_USER
+  LOG_OUT_USER,
+  CHANGE_WORKSPACE
 } from "../actionTypes";
 
 import {
@@ -101,3 +102,8 @@ export const logOut = () => {
     // TODO: sever socket.io connection to server
   };
 };
+
+export const changeWorkspace = workspace => ({
+  type: CHANGE_WORKSPACE,
+  payload: workspace
+});

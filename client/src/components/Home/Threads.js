@@ -16,7 +16,11 @@ class Threads extends Component {
     } = this.props;
 
     return [
-      <ThreadList threadName={currentWorkspace} showList={showList} />,
+      <ThreadList
+        threadName={currentWorkspace}
+        showList={showList}
+        isWorkspaceList
+      />,
       <ThreadList threadName={channelLabel} showList={showList} />,
       <ThreadList threadName={dmLabel} showList={showList} />
     ];

@@ -1,4 +1,4 @@
-import {} from "../actionTypes";
+import { CHANGE_WORKSPACE } from "../actionTypes";
 
 const defaultStore = {
   workspace: {
@@ -21,6 +21,8 @@ function threadsReducer(state = defaultStore, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case CHANGE_WORKSPACE:
+      return { ...state, workspace: { ...state.workspace, current: payload } };
     default:
       return state;
   }

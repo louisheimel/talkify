@@ -2,15 +2,29 @@ import React, { Component, Fragment } from "react";
 import { Dropdown, Menu } from "antd";
 import { connect } from "react-redux";
 import ThreadListItem from "./ThreadListItem";
-const workspaceMenu = workspaces => (
+import { changeWorkspace } from "../../redux/actionCreators";
+
+const workspaceMenu = (workspaces, selectMenuItem) => (
   <Menu>
     {workspaces.map(workspace => (
-      <Menu.Item key={workspace}>{workspace}</Menu.Item>
+      <Menu.Item onClick={selectMenuItem(workspace)} key={workspace}>
+        {workspace}
+      </Menu.Item>
     ))}
   </Menu>
 );
+
 class ThreadList extends Component {
+  selectMenuItem = workspace => () => {
+    const { handleWorkspaceChange } = this.props;
+    handleWorkspaceChange(workspace);
+  };
+
   render() {
+    const { isWorkspaceList } = this.props;
+    console.log(
+      "is this the workspace list? " + (isWorkspaceList ? "yes" : "no")
+    );
     const { threads, threadName, showList, workspaces } = this.props;
     console.log(threads, threadName, showList);
 
@@ -23,8 +37,11 @@ class ThreadList extends Component {
     };
 
     const threadListItems = threads && threads.map(ThreadListItem);
-    return threadName === "Work" ? (
-      <Dropdown overlay={workspaceMenu(workspaces)} trigger={["hover"]}>
+    return isWorkspaceList ? (
+      <Dropdown
+        overlay={workspaceMenu(workspaces, this.selectMenuItem)}
+        trigger={["hover"]}
+      >
         <p>{threadName}</p>
       </Dropdown>
     ) : (
@@ -74,5 +91,7 @@ class ThreadList extends Component {
 
 export default connect(
   state => ({ workspaces: state.threads.workspace.options }),
-  dispatch => ({})
+  dispatch => ({
+    handleWorkspaceChange: workspace => dispatch(changeWorkspace(workspace))
+  })
 )(ThreadList);
