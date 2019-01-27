@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { Layout } from "antd";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
 import { connect } from "react-redux";
 
 import { Login, SignUp, Home } from "./components";
@@ -15,6 +20,7 @@ const { Header, Footer } = Layout;
 
 class App extends Component {
   render() {
+    const { logOut, loggedIn } = this.props;
     return (
       <Router>
         <Layout>
@@ -46,7 +52,14 @@ class App extends Component {
           <Layout>
             <Route exact path="/" component={Login} />
             <Route path="/signup" component={SignUp} />
-            <Route path="/home" component={Home} />
+            {loggedIn && <Route path="/home" component={Home} />}
+            <Route
+              exact
+              path="/home"
+              render={() =>
+                loggedIn ? <Redirect to="/home" /> : <Redirect to="/" />
+              }
+            />
           </Layout>
           <Footer>
             <a href="https://github.com/louisheimel/talkify">Github</a>
@@ -58,6 +71,8 @@ class App extends Component {
 }
 
 export default connect(
-  () => ({}),
-  dispatch => ({ handleLogOut: e => dispatch(logOut()) })
+  state => (console.log(state), { loggedIn: state.loginStatus.loggedIn }),
+  dispatch => ({
+    handleLogOut: e => dispatch(logOut())
+  })
 )(App);
