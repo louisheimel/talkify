@@ -19,7 +19,6 @@ app.use(function(req, res, next) {
 app.use(bodyParser.json());
 
 app.get("/api", (req, res) => {
-  console.log(req.body);
   res.json({ hello: "world" });
 });
 
@@ -29,12 +28,7 @@ app.post("/api/signup", (req, res) => {
   }
   const { confirmPassword, ...signupData } = req.body;
   const { password } = signupData;
-  console.log(
-    "signupData is: ",
-    signupData,
-    "confirmPassword is: ",
-    confirmPassword
-  );
+
   if (password === confirmPassword) {
     API.initAPI()
       .then(api => {
@@ -52,6 +46,7 @@ app.post("/api/signup", (req, res) => {
 
 const listenForLogin = socket =>
   socket.on("user login", data => {
+    socket.emit("news", { hello: "world" });
     console.log("user data from socket: ", data);
     API.initAPI()
       .then(api => {
@@ -66,9 +61,7 @@ const listenForLogin = socket =>
   });
 
 io.on("connection", socket => {
-  socket.emit("news", { hello: "world" });
   listenForLogin(socket);
-  console.log("Client connected");
 });
 
 io.on("disconnect", () => {

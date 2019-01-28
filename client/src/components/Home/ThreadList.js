@@ -22,11 +22,8 @@ class ThreadList extends Component {
 
   render() {
     const { isWorkspaceList } = this.props;
-    console.log(
-      "is this the workspace list? " + (isWorkspaceList ? "yes" : "no")
-    );
+
     const { threads, threadName, showList, workspaces } = this.props;
-    console.log(threads, threadName, showList);
 
     const ulStyles = {
       paddingLeft: "20px"

@@ -3,6 +3,9 @@ import io from "socket.io-client";
 export const createSocketConnection = () =>
   new Promise((resolve, reject) => {
     const socket = io("http://localhost:3001");
+    socket.on("news", data => {
+      console.log("there is news!", data);
+    });
     socket.on("connect", () => {
       resolve(socket);
     });
