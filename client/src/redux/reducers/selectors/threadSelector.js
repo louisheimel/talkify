@@ -6,18 +6,11 @@ const getAllMessages = store => store.threads.messages;
 
 const getMessages = createSelector(
   [getWorkspace, getCurrentThread, getAllMessages],
-  (workspace, currentThread, allMessages) => (
-    console.log(
-      workspace,
-      currentThread,
-      allMessages,
-      " are workspace, currentThread, and allMessages"
-    ),
+  (workspace, currentThread, allMessages) =>
     (allMessages &&
       allMessages[workspace] &&
       allMessages[workspace][currentThread]) ||
-      []
-  )
+    []
 );
 
 export default getMessages;
