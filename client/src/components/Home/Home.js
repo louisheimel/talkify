@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Layout, Input } from "antd";
 import { newMessage } from "../../redux/actionCreators";
+import threadSelector from "../../redux/reducers/selectors/threadSelector";
+
 import Toggler from "./Toggler";
 import Threads from "./Threads";
 
@@ -48,7 +50,7 @@ class Home extends Component {
   };
   render() {
     const { collapsed } = this.state;
-    const { handleMessage } = this.props;
+    const { handleMessage, messages } = this.props;
     const siderStyles = { color: "#fff", fontSize: "24px", userSelect: "none" };
     const layoutStyles = {
       position: "relative"
@@ -98,7 +100,7 @@ class Home extends Component {
           <Toggler toggle={this.toggle} collapsed={collapsed} />
         </Sider>
         <Content style={contentStyles}>
-          <Messages style={messagesStyles} messages={this.state.messages} />
+          <Messages style={messagesStyles} messages={messages} />
           <TextArea
             style={inputStyles}
             autosize
@@ -117,7 +119,7 @@ class Home extends Component {
 }
 
 export default connect(
-  state => ({}),
+  state => ({ messages: threadSelector(state) }),
   dispatch => ({
     handleMessage: message => dispatch(newMessage(message))
   })
