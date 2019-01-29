@@ -9,3 +9,4 @@ export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
 export const LOG_OUT_USER = "LOG_OUT_USER";
 export const CHANGE_WORKSPACE = "CHANGE_WORKSPACE";
+export const NEW_MESSAGE = "NEW_MESSAGE";

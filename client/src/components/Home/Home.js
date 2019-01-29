@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-
+import { connect } from "react-redux";
 import { Layout, Input } from "antd";
-
+import { newMessage } from "../redux/actionCreators";
 import Toggler from "./Toggler";
 import Threads from "./Threads";
 
@@ -102,7 +102,7 @@ class Home extends Component {
           <TextArea
             style={inputStyles}
             autosize
-            onPressEnter={this.handleMessage}
+            onPressEnter={handleMessage}
             onChange={this.handleInputChange}
             value={this.state.inputValue}
           />
@@ -112,4 +112,9 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default connect(
+  state => ({}),
+  dispatch => ({
+    handleMessage: message => dispatch(newMessage(message))
+  })
+)(Home);

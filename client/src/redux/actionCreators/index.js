@@ -11,7 +11,8 @@ import {
   SIGNUP_SUCCESS,
   SIGNUP_FAILURE,
   LOG_OUT_USER,
-  CHANGE_WORKSPACE
+  CHANGE_WORKSPACE,
+  NEW_MESSAGE
 } from "../actionTypes";
 
 import {
@@ -99,4 +100,9 @@ export const logOut = () => {
 export const changeWorkspace = workspace => ({
   type: CHANGE_WORKSPACE,
   payload: workspace
+});
+
+export const newMessage = message => ({
+  type: NEW_MESSAGE,
+  payload: message
 });
