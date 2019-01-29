@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Layout, Input } from "antd";
-import { newMessage } from "../redux/actionCreators";
+import { newMessage } from "../../redux/actionCreators";
 import Toggler from "./Toggler";
 import Threads from "./Threads";
 
@@ -48,7 +48,7 @@ class Home extends Component {
   };
   render() {
     const { collapsed } = this.state;
-
+    const { handleMessage } = this.props;
     const siderStyles = { color: "#fff", fontSize: "24px", userSelect: "none" };
     const layoutStyles = {
       position: "relative"
@@ -102,7 +102,11 @@ class Home extends Component {
           <TextArea
             style={inputStyles}
             autosize
-            onPressEnter={handleMessage}
+            onPressEnter={() => {
+              const inputValue = this.state.inputValue;
+              this.setState({ inputValue: "" });
+              handleMessage(inputValue);
+            }}
             onChange={this.handleInputChange}
             value={this.state.inputValue}
           />
