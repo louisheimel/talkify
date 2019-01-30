@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Dropdown, Menu } from "antd";
 import { connect } from "react-redux";
 import ThreadListItem from "./ThreadListItem";
-import { changeWorkspace } from "../../redux/actionCreators";
+import { changeWorkspace, changeChannel } from "../../redux/actionCreators";
 
 import getCurrentChannel from "../../redux/reducers/selectors/currentChannelSelector";
 
@@ -28,7 +28,8 @@ class ThreadList extends Component {
       isWorkspaceList,
       currentChannel,
       threadName,
-      showList
+      showList,
+      handleChannelChange
     } = this.props;
 
     const ulStyles = {
@@ -39,10 +40,15 @@ class ThreadList extends Component {
       marginBottom: "5px"
     };
 
-    const threadListItems = (console.log(options),
-    options.map(option => (
-      <ThreadListItem selected={option === currentChannel} thread={option} />
-    )));
+    const threadListItems =
+      // console.log(options, currentChannel),
+      (options || []).map(option => (
+        <ThreadListItem
+          selected={option === currentChannel}
+          thread={option}
+          changeChannel={handleChannelChange}
+        />
+      ));
 
     return isWorkspaceList ? (
       [
@@ -88,6 +94,7 @@ export default connect(
     ).currentChannel
   }),
   dispatch => ({
-    handleWorkspaceChange: workspace => dispatch(changeWorkspace(workspace))
+    handleWorkspaceChange: workspace => dispatch(changeWorkspace(workspace)),
+    handleChannelChange: channel => dispatch(changeChannel(channel))
   })
 )(ThreadList);

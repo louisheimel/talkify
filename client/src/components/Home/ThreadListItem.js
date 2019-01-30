@@ -7,10 +7,11 @@ const liStyles = {
   letterSpacing: "0.03rem",
   marginLeft: "0"
 };
-const ThreadListItem = ({ thread, selected }) => (
+const ThreadListItem = ({ thread, selected, changeChannel }) => (
   <li
     style={selected ? { ...liStyles, color: "crimson" } : { ...liStyles }}
     key={thread}
+    onClick={() => changeChannel(thread)}
   >
     {thread}
   </li>

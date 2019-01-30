@@ -12,6 +12,7 @@ import {
   SIGNUP_FAILURE,
   LOG_OUT_USER,
   CHANGE_WORKSPACE,
+  CHANGE_CHANNEL,
   NEW_MESSAGE
 } from "../actionTypes";
 
@@ -105,4 +106,9 @@ export const changeWorkspace = workspace => ({
 export const newMessage = message => ({
   type: NEW_MESSAGE,
   payload: message
+});
+
+export const changeChannel = channel => ({
+  type: CHANGE_CHANNEL,
+  payload: channel
 });
