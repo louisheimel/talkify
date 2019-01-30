@@ -13,4 +13,9 @@ const ThreadListItem = thread => (
   </li>
 );
 
-export default ThreadListItem;
+const SelectedThreadListItem = thread => (
+  <li style={{ ...liStyles, color: "crimson" }} key={thread}>
+    {thread}
+  </li>
+);
+export { ThreadListItem, SelectedThreadListItem };

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import getCurrentWorkspace from "../../redux/reducers/selectors/currentWorkspaceSelector";
+import getCurrentMessages from "../../redux/reducers/selectors/currentMessagesSelector";
 import ThreadList from "./ThreadList";
 
 class Threads extends Component {
@@ -15,11 +17,12 @@ class Threads extends Component {
       dmLabel,
       showList
     } = this.props;
-    console.log(showList, " is showList");
+    console.log(workspaceOptions, " are workspace options");
     return [
       <ThreadList
         threadName={currentWorkspace}
         showList={showList}
+        options={workspaceOptions}
         isWorkspaceList
       />,
       <ThreadList
@@ -33,37 +36,30 @@ class Threads extends Component {
         options={dmOptions}
       />
     ];
-    // return Object.keys(threads).map(threadName => {
-    //   switch (threadName) {
-    //     case "Workspace":
-    //       return (
-    //         <ThreadList
-    //           threadName={threadName}
-    //           threads={threads[threadName]}
-    //           showList={showList}
-    //         />
-    //       );
-    //     default:
-    //       return (
-    //         <ThreadList
-    //           threadName={threadName}
-    //           threads={threads[threadName]}
-    //           showList={showList}
-    //         />
-    //       );
-    //   }
-    // });
   }
 }
 
 export default connect(
-  state => ({
-    currentWorkspace: state.threads.workspace.current,
-    workspaceOptions: state.threads.workspace.options,
-    channelLabel: state.threads.channels.label,
-    channelOptions: state.threads.channels.options,
-    dmOptions: state.threads.directMessages.options,
-    dmLabel: state.threads.directMessages.label
-  }),
+  state => (
+    console.log(getCurrentMessages(state)),
+    {
+      currentWorkspace: getCurrentWorkspace(state),
+      workspaceOptions: state.threads.workspace.options.map(
+        workspace => workspace.name
+      ),
+      channelLabel:
+        getCurrentMessages(state).channels &&
+        getCurrentMessages(state).channels.label,
+      channelOptions:
+        getCurrentMessages(state).channels &&
+        getCurrentMessages(state).channels.options,
+      dmOptions:
+        getCurrentMessages(state).directMessages &&
+        getCurrentMessages(state).directMessages.options,
+      dmLabel:
+        getCurrentMessages(state).directMessages &&
+        getCurrentMessages(state).directMessages.label
+    }
+  ),
   dispatch => ({})
 )(Threads);

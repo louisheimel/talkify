@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Dropdown, Menu } from "antd";
 import { connect } from "react-redux";
-import ThreadListItem from "./ThreadListItem";
+import { ThreadListItem, SelectedThreadListItem } from "./ThreadListItem";
 import { changeWorkspace } from "../../redux/actionCreators";
 
 const workspaceMenu = (workspaces, selectMenuItem) => (
@@ -21,9 +21,15 @@ class ThreadList extends Component {
   };
 
   render() {
-    const { isWorkspaceList } = this.props;
-
-    const { threads, threadName, showList, workspaces, options } = this.props;
+    const {
+      options,
+      label,
+      isWorkspaceList,
+      currentChannel,
+      workspaces,
+      threadName,
+      showList
+    } = this.props;
     console.log("options are: ", options);
 
     const ulStyles = {
@@ -33,37 +39,26 @@ class ThreadList extends Component {
     const pStyles = {
       marginBottom: "5px"
     };
+    console.log(options, " are options");
+    const threadListItems = options
+      ? options.map(option =>
+          (option === currentChannel ? SelectedThreadListItem : ThreadListItem)(
+            option
+          )
+        )
+      : null;
 
-    const threadListItems = options && options.map(ThreadListItem);
+    console.log(this.props);
     return isWorkspaceList ? (
       [
         <Dropdown
-          overlay={workspaceMenu(workspaces, this.selectMenuItem)}
+          overlay={workspaceMenu(options, this.selectMenuItem)}
           trigger={["hover"]}
         >
           <p>{threadName}</p>
         </Dropdown>
       ]
     ) : (
-      // <Fragment>
-      //   {/* TODO: Implement dropdown menu to change workspaces here */}
-
-      //   <p
-      //     style={
-      //       showList
-      //         ? pStyles
-      //         : {
-      //             ...pStyles,
-      //             fontSize: "12px",
-      //             marginTop: "30px",
-      //             fontWeight: "700"
-      //           }
-      //     }
-
-      //   >
-      //     Work
-      //   </p>
-      // </Fragment>
       <Fragment>
         {/* TODO: render channel and dm thread here */}
         <p
@@ -91,7 +86,10 @@ class ThreadList extends Component {
 }
 
 export default connect(
-  state => ({ workspaces: state.threads.workspace.options }),
+  state => ({
+    workspaces: state.threads.workspace.options,
+    currentChannel: state.threads.currentChannel
+  }),
   dispatch => ({
     handleWorkspaceChange: workspace => dispatch(changeWorkspace(workspace))
   })
