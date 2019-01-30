@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Dropdown, Menu } from "antd";
 import { connect } from "react-redux";
-import { ThreadListItem, SelectedThreadListItem } from "./ThreadListItem";
+import ThreadListItem from "./ThreadListItem";
 import { changeWorkspace } from "../../redux/actionCreators";
 
 import getCurrentChannel from "../../redux/reducers/selectors/currentChannelSelector";
@@ -25,10 +25,8 @@ class ThreadList extends Component {
   render() {
     const {
       options,
-      label,
       isWorkspaceList,
       currentChannel,
-      workspaces,
       threadName,
       showList
     } = this.props;
@@ -40,13 +38,11 @@ class ThreadList extends Component {
     const pStyles = {
       marginBottom: "5px"
     };
-    const threadListItems = options
-      ? options.map(option =>
-          (option === currentChannel ? SelectedThreadListItem : ThreadListItem)(
-            option
-          )
-        )
-      : null;
+
+    const threadListItems = (console.log(options),
+    options.map(option => (
+      <ThreadListItem selected={option === currentChannel} thread={option} />
+    )));
 
     return isWorkspaceList ? (
       [

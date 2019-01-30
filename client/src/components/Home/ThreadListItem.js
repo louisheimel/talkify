@@ -7,15 +7,13 @@ const liStyles = {
   letterSpacing: "0.03rem",
   marginLeft: "0"
 };
-const ThreadListItem = thread => (
-  <li style={liStyles} key={thread}>
+const ThreadListItem = ({ thread, selected }) => (
+  <li
+    style={selected ? { ...liStyles, color: "crimson" } : { ...liStyles }}
+    key={thread}
+  >
     {thread}
   </li>
 );
 
-const SelectedThreadListItem = thread => (
-  <li style={{ ...liStyles, color: "crimson" }} key={thread}>
-    {thread}
-  </li>
-);
-export { ThreadListItem, SelectedThreadListItem };
+export default ThreadListItem;
