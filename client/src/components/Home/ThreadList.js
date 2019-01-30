@@ -23,7 +23,8 @@ class ThreadList extends Component {
   render() {
     const { isWorkspaceList } = this.props;
 
-    const { threads, threadName, showList, workspaces } = this.props;
+    const { threads, threadName, showList, workspaces, options } = this.props;
+    console.log("options are: ", options);
 
     const ulStyles = {
       paddingLeft: "20px"
@@ -33,14 +34,16 @@ class ThreadList extends Component {
       marginBottom: "5px"
     };
 
-    const threadListItems = threads && threads.map(ThreadListItem);
+    const threadListItems = options && options.map(ThreadListItem);
     return isWorkspaceList ? (
-      <Dropdown
-        overlay={workspaceMenu(workspaces, this.selectMenuItem)}
-        trigger={["hover"]}
-      >
-        <p>{threadName}</p>
-      </Dropdown>
+      [
+        <Dropdown
+          overlay={workspaceMenu(workspaces, this.selectMenuItem)}
+          trigger={["hover"]}
+        >
+          <p>{threadName}</p>
+        </Dropdown>
+      ]
     ) : (
       // <Fragment>
       //   {/* TODO: Implement dropdown menu to change workspaces here */}
@@ -56,6 +59,7 @@ class ThreadList extends Component {
       //             fontWeight: "700"
       //           }
       //     }
+
       //   >
       //     Work
       //   </p>

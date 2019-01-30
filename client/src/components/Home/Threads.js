@@ -9,20 +9,29 @@ class Threads extends Component {
       currentWorkspace,
       workspaceOptions,
       currentChannel,
+      dmOptions,
       channelOptions,
       channelLabel,
       dmLabel,
       showList
     } = this.props;
-
+    console.log(showList, " is showList");
     return [
       <ThreadList
         threadName={currentWorkspace}
         showList={showList}
         isWorkspaceList
       />,
-      <ThreadList threadName={channelLabel} showList={showList} />,
-      <ThreadList threadName={dmLabel} showList={showList} />
+      <ThreadList
+        threadName={channelLabel}
+        showList={showList}
+        options={channelOptions}
+      />,
+      <ThreadList
+        threadName={dmLabel}
+        showList={showList}
+        options={dmOptions}
+      />
     ];
     // return Object.keys(threads).map(threadName => {
     //   switch (threadName) {
@@ -52,6 +61,8 @@ export default connect(
     currentWorkspace: state.threads.workspace.current,
     workspaceOptions: state.threads.workspace.options,
     channelLabel: state.threads.channels.label,
+    channelOptions: state.threads.channels.options,
+    dmOptions: state.threads.directMessages.options,
     dmLabel: state.threads.directMessages.label
   }),
   dispatch => ({})
