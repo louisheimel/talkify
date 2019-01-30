@@ -17,7 +17,7 @@ const defaultStore = {
           options: ["Alice", "Bob"]
         },
         currentChannel: "project channel",
-        messages: {}
+        messages: []
       }
     ]
   }
@@ -31,6 +31,7 @@ function threadsReducer(state = defaultStore, action) {
       console.log("workspace payload: ", payload);
       return { ...state, workspace: { ...state.workspace, current: payload } };
     case NEW_MESSAGE:
+      console.log("new message is: ", payload);
       return newMessageReducer(state, action);
     default:
       return state;
