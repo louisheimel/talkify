@@ -17,7 +17,6 @@ class Threads extends Component {
       dmLabel,
       showList
     } = this.props;
-    console.log(workspaceOptions, " are workspace options");
     return [
       <ThreadList
         threadName={currentWorkspace}
@@ -40,26 +39,23 @@ class Threads extends Component {
 }
 
 export default connect(
-  state => (
-    console.log(getCurrentMessages(state)),
-    {
-      currentWorkspace: getCurrentWorkspace(state),
-      workspaceOptions: state.threads.workspace.options.map(
-        workspace => workspace.name
-      ),
-      channelLabel:
-        getCurrentMessages(state).channels &&
-        getCurrentMessages(state).channels.label,
-      channelOptions:
-        getCurrentMessages(state).channels &&
-        getCurrentMessages(state).channels.options,
-      dmOptions:
-        getCurrentMessages(state).directMessages &&
-        getCurrentMessages(state).directMessages.options,
-      dmLabel:
-        getCurrentMessages(state).directMessages &&
-        getCurrentMessages(state).directMessages.label
-    }
-  ),
+  state => ({
+    currentWorkspace: getCurrentWorkspace(state),
+    workspaceOptions: state.threads.workspace.options.map(
+      workspace => workspace.name
+    ),
+    channelLabel:
+      getCurrentMessages(state).channels &&
+      getCurrentMessages(state).channels.label,
+    channelOptions:
+      getCurrentMessages(state).channels &&
+      getCurrentMessages(state).channels.options,
+    dmOptions:
+      getCurrentMessages(state).directMessages &&
+      getCurrentMessages(state).directMessages.options,
+    dmLabel:
+      getCurrentMessages(state).directMessages &&
+      getCurrentMessages(state).directMessages.label
+  }),
   dispatch => ({})
 )(Threads);

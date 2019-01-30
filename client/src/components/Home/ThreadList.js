@@ -32,8 +32,6 @@ class ThreadList extends Component {
       threadName,
       showList
     } = this.props;
-    console.log("options are: ", options);
-    console.log("current channel is: ", currentChannel);
 
     const ulStyles = {
       paddingLeft: "20px"
@@ -42,7 +40,6 @@ class ThreadList extends Component {
     const pStyles = {
       marginBottom: "5px"
     };
-    console.log(options, " are options");
     const threadListItems = options
       ? options.map(option =>
           (option === currentChannel ? SelectedThreadListItem : ThreadListItem)(
@@ -51,7 +48,6 @@ class ThreadList extends Component {
         )
       : null;
 
-    console.log(this.props);
     return isWorkspaceList ? (
       [
         <Dropdown
@@ -89,16 +85,12 @@ class ThreadList extends Component {
 }
 
 export default connect(
-  state => (
-    console.log(state, " is state in thread list component"),
-    console.log("getCurrentChannel(state): ", getCurrentChannel(state)),
-    {
-      workspaces: state.threads.workspace.options,
-      currentChannel: state.threads.workspace.options.find(
-        option => option.name === state.threads.workspace.current
-      ).currentChannel
-    }
-  ),
+  state => ({
+    workspaces: state.threads.workspace.options,
+    currentChannel: state.threads.workspace.options.find(
+      option => option.name === state.threads.workspace.current
+    ).currentChannel
+  }),
   dispatch => ({
     handleWorkspaceChange: workspace => dispatch(changeWorkspace(workspace))
   })
