@@ -4,7 +4,7 @@ import getAllMessages from "./currentMessagesSelector";
 
 const getMessages = createSelector(
   [getAllMessages],
-  allMessages => allMessages.messages
+  allMessages => allMessages.messages || []
 );
 
 export default getMessages;
