@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { ThreadListItem, SelectedThreadListItem } from "./ThreadListItem";
 import { changeWorkspace } from "../../redux/actionCreators";
 
+import getCurrentChannel from "../../redux/reducers/selectors/currentChannelSelector";
+
 const workspaceMenu = (workspaces, selectMenuItem) => (
   <Menu>
     {workspaces.map(workspace => (
@@ -31,6 +33,7 @@ class ThreadList extends Component {
       showList
     } = this.props;
     console.log("options are: ", options);
+    console.log("current channel is: ", currentChannel);
 
     const ulStyles = {
       paddingLeft: "20px"
@@ -86,10 +89,16 @@ class ThreadList extends Component {
 }
 
 export default connect(
-  state => ({
-    workspaces: state.threads.workspace.options,
-    currentChannel: state.threads.currentChannel
-  }),
+  state => (
+    console.log(state, " is state in thread list component"),
+    console.log("getCurrentChannel(state): ", getCurrentChannel(state)),
+    {
+      workspaces: state.threads.workspace.options,
+      currentChannel: state.threads.workspace.options.find(
+        option => option.name === state.threads.workspace.current
+      ).currentChannel
+    }
+  ),
   dispatch => ({
     handleWorkspaceChange: workspace => dispatch(changeWorkspace(workspace))
   })
