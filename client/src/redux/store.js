@@ -27,8 +27,11 @@ const composeEnhancers =
       })
     : compose;
 
+const logger = createLogger({});
+
 const enhancer = composeEnhancers(
-  applyMiddleware(thunk)
+  applyMiddleware(thunk, logger)
   // other store enhancers if any
 );
+
 export default createStore(rootReducer, persistedState, enhancer);
