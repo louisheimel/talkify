@@ -13,13 +13,18 @@ import {
   LOG_OUT_USER,
   CHANGE_WORKSPACE,
   CHANGE_CHANNEL,
-  NEW_MESSAGE
+  NEW_MESSAGE,
+  MESSAGE_SUCCESS,
+  MESSAGE_FAILURE
 } from "../actionTypes";
 
 import {
   createSocketConnection,
-  waitForSuccessfulLogin
+  waitForSuccessfulLogin,
+  postMessageViaSocket
 } from "../../socketSetup";
+
+var socketConnection;
 
 export const updateLoginUsername = username => ({
   type: UPDATE_LOGIN_USERNAME,
@@ -56,7 +61,10 @@ export const loginFailure = () => ({
 
 export const requestLogin = loginData => {
   return dispatch => {
-    createSocketConnection()
+    (
+      socketConnection ||
+      ((socketConnection = createSocketConnection()), socketConnection)
+    )
       .then(waitForSuccessfulLogin(loginData))
       .then(() => {
         dispatch(loginSuccess());
@@ -103,12 +111,26 @@ export const changeWorkspace = workspace => ({
   payload: workspace
 });
 
-export const newMessage = message => ({
-  type: NEW_MESSAGE,
-  payload: message
-});
-
 export const changeChannel = channel => ({
   type: CHANGE_CHANNEL,
   payload: channel
 });
+
+export const messageSuccess = () => ({
+  type: MESSAGE_SUCCESS
+});
+
+export const messageFailure = () => ({
+  type: MESSAGE_FAILURE
+});
+export const postMessage = (message, namespace, room) => {
+  console.log(`posting message to namespace: ${namespace}, and room: ${room}`);
+
+  return dispatch => {
+    socketConnection
+      .then(postMessageViaSocket(message, namespace, room))
+      .then(data => dispatch(messageSuccess()))
+      .catch(err => dispatch(messageFailure()));
+    // TODO: implement message posting logic here
+  };
+};

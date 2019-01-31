@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Layout, Input } from "antd";
-import { newMessage } from "../../redux/actionCreators";
+import { postMessage } from "../../redux/actionCreators";
 import threadSelector from "../../redux/reducers/selectors/threadSelector";
 
 import Toggler from "./Toggler";
@@ -50,7 +50,7 @@ class Home extends Component {
   };
   render() {
     const { collapsed } = this.state;
-    const { handleMessage, messages } = this.props;
+    const { handleMessage, messages, namespace, room } = this.props;
     const siderStyles = { color: "#fff", fontSize: "24px", userSelect: "none" };
     const layoutStyles = {
       position: "relative"
@@ -107,7 +107,7 @@ class Home extends Component {
             onPressEnter={() => {
               const inputValue = this.state.inputValue;
               this.setState({ inputValue: "" });
-              handleMessage(inputValue);
+              handleMessage(inputValue, namespace, room);
             }}
             onChange={this.handleInputChange}
             value={this.state.inputValue}
@@ -119,8 +119,17 @@ class Home extends Component {
 }
 
 export default connect(
-  state => ({ messages: threadSelector(state) }),
+  state => ({
+    messages: threadSelector(state),
+    namespace: state.threads.workspace.current,
+    room: state.threads.workspace.options.find(
+      option => option.name === state.threads.workspace.current
+    ).currentChannel
+  }),
   dispatch => ({
-    handleMessage: message => dispatch(newMessage(message))
+    handleMessage: (message, namespace, room) => (
+      console.log("about to dispatch", message, namespace, room),
+      dispatch(postMessage(message, namespace, room))
+    )
   })
 )(Home);
