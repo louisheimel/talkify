@@ -40,7 +40,7 @@ function threadsReducer(state = defaultStore, action) {
     ),
     messages: payload
   });
-  const makeNewOptions = options => [...otherOptions(), currentOption()];
+  const makeNewOptions = () => [...otherOptions(), currentOption()];
   switch (type) {
     case CHANGE_WORKSPACE:
       return { ...state, workspace: { ...state.workspace, current: payload } };
@@ -50,7 +50,7 @@ function threadsReducer(state = defaultStore, action) {
         ...state,
         workspace: {
           ...state.workspace,
-          options: [...makeNewOptions(state.workspace.options)]
+          options: [...makeNewOptions()]
         }
       };
     case CHANGE_CHANNEL:
