@@ -28,8 +28,10 @@ const listenForLogin = socket =>
   });
 
 io.on("connection", socket => {
+  listenForLogin(socket);
   socket.on("*", packet => {
     const [channel, message] = packet.data;
+    console.log("channel is: " + channel);
     messages[channel] = messages[channel]
       ? messages[channel].concat(message)
       : [message];

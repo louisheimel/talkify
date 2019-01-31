@@ -5,19 +5,24 @@ const defaultStore = {
   workspace: {
     current: "Work",
     options: [
-      { name: "Fun" },
+      {
+        name: "Fun"
+        // channels: {
+        //   label: "Channels",
+        //   messages: { general: [] }
+        // }
+      },
       {
         name: "Work",
         channels: {
           label: "Channels",
-          options: ["project channel", "just for fun"]
+          messages: { "project channel": [], "just for fun": [] }
         },
         directMessages: {
           label: "Direct Messages",
-          options: ["Alice", "Bob"]
+          messages: { Alice: [], Bob: [] }
         },
-        currentChannel: "project channel",
-        messages: []
+        currentChannel: "project channel"
       }
     ]
   }
@@ -25,14 +30,29 @@ const defaultStore = {
 
 function threadsReducer(state = defaultStore, action) {
   const { type, payload } = action;
-
+  const otherOptions = () =>
+    state.workspace.options.filter(
+      option => option.name !== state.workspace.current
+    );
+  const currentOption = () => ({
+    ...state.workspace.options.find(
+      option => option.name === state.workspace.current
+    ),
+    messages: payload
+  });
+  const makeNewOptions = options => [...otherOptions(), currentOption()];
   switch (type) {
     case CHANGE_WORKSPACE:
-      console.log("workspace payload: ", payload);
       return { ...state, workspace: { ...state.workspace, current: payload } };
     case NEW_MESSAGE:
-      console.log("new message is: ", payload);
-      return newMessageReducer(state, action);
+      console.log("hello from threadsReducer line 39", payload);
+      return {
+        ...state,
+        workspace: {
+          ...state.workspace,
+          options: [...makeNewOptions(state.workspace.options)]
+        }
+      };
     case CHANGE_CHANNEL:
       const newstate = {
         ...state,

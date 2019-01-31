@@ -13,7 +13,6 @@ import {
   LOG_OUT_USER,
   CHANGE_WORKSPACE,
   CHANGE_CHANNEL,
-  NEW_MESSAGE,
   MESSAGE_SUCCESS,
   MESSAGE_FAILURE
 } from "../actionTypes";
@@ -124,7 +123,10 @@ export const messageFailure = () => ({
   type: MESSAGE_FAILURE
 });
 export const postMessage = (message, namespace, room) => {
-  console.log(`posting message to namespace: ${namespace}, and room: ${room}`);
+  false &&
+    console.log(
+      `posting message to namespace: ${namespace}, and room: ${room}`
+    );
 
   return dispatch => {
     socketConnection

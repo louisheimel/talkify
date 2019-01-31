@@ -15,7 +15,7 @@ class Messages extends Component {
     const { messages, style } = this.props;
     return (
       <div style={style}>
-        {messages.map(message => (
+        {(messages || []).map(message => (
           <p style={{ width: "100%" }}>{message}</p>
         ))}
       </div>
@@ -50,7 +50,14 @@ class Home extends Component {
   };
   render() {
     const { collapsed } = this.state;
-    const { handleMessage, messages, namespace, room } = this.props;
+    const {
+      handleMessage,
+      messages,
+      namespace,
+      room,
+      threads,
+      store
+    } = this.props;
     const siderStyles = { color: "#fff", fontSize: "24px", userSelect: "none" };
     const layoutStyles = {
       position: "relative"
@@ -87,12 +94,6 @@ class Home extends Component {
       alignSelf: "flex-end"
     };
 
-    const threads = {
-      Workspace: [],
-      Channels: ["project channel", "just for fun"],
-      "Direct Messages": ["Alice", "Bob"]
-    };
-
     return (
       <Layout style={layoutStyles}>
         <Sider collapsed={collapsed} style={siderStyles}>
@@ -100,6 +101,7 @@ class Home extends Component {
           <Toggler toggle={this.toggle} collapsed={collapsed} />
         </Sider>
         <Content style={contentStyles}>
+          <code>{JSON.stringify(store)}</code>
           <Messages style={messagesStyles} messages={messages} />
           <TextArea
             style={inputStyles}
@@ -120,16 +122,22 @@ class Home extends Component {
 
 export default connect(
   state => ({
-    messages: threadSelector(state),
+    messages:
+      state.threads.workspace.options &&
+      state.threads.workspace.options.messages &&
+      state.threads.workspace.options.messages.find(
+        option => option.name === state.threads.workspace.current
+      ).messages,
     namespace: state.threads.workspace.current,
-    room: state.threads.workspace.options.find(
-      option => option.name === state.threads.workspace.current
-    ).currentChannel
+    room:
+      state.threads.workspace.options &&
+      state.threads.workspace.options.find(
+        option => option.name === state.threads.workspace.current
+      ).currentChannel,
+    store: state
   }),
   dispatch => ({
-    handleMessage: (message, namespace, room) => (
-      console.log("about to dispatch", message, namespace, room),
+    handleMessage: (message, namespace, room) =>
       dispatch(postMessage(message, namespace, room))
-    )
   })
 )(Home);
