@@ -34,22 +34,58 @@ function threadsReducer(state = defaultStore, action) {
     state.workspace.options.filter(
       option => option.name !== state.workspace.current
     );
-  const currentOption = messages => ({
-    ...state.workspace.options.find(
+  const currentOption = (messages, channel) => {
+    channel = channel.split("/")[1];
+    const oldOption = state.workspace.options.find(
       option => option.name === state.workspace.current
-    ),
-    messages
-  });
-  const makeNewOptions = (messages, payload) => [
+    );
+    const changeChannelContents = () => {
+      console.log(Object.keys(oldOption.channels.messages), channel);
+      if (Object.keys(oldOption.channels.messages).includes(channel)) {
+        // TODO: return something here
+        return {
+          channels: {
+            ...oldOption.channels,
+            messages: {
+              ...oldOption.channels.messages,
+              [channel]: messages
+            }
+          },
+          directMessages: oldOption.directMessages
+        };
+      } else if (
+        Object.keys(oldOption.directMessages.messages).includes(channel)
+      ) {
+        // TODO: return something here
+        return {
+          channels: oldOption.channels,
+          directMessages: {
+            ...oldOption.directMessages,
+            messages: {
+              ...oldOption.directMessages.messages,
+              [channel]: messages
+            }
+          }
+        };
+      } else {
+        throw new Error("problem changing channel messages...");
+      }
+    };
+    return {
+      ...oldOption,
+      ...changeChannelContents()
+    };
+  };
+  const makeNewOptions = (messages, channel) => [
     ...otherOptions(),
-    currentOption(messages)
+    currentOption(messages, channel)
   ];
   switch (type) {
     case CHANGE_WORKSPACE:
       return { ...state, workspace: { ...state.workspace, current: payload } };
     case NEW_MESSAGE:
       const { messages, channel } = payload;
-      console.log("hello from threadsReducer line 39", messages);
+      console.log("hello from threadsReducer line 39", payload);
       return {
         ...state,
         workspace: {
