@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import ThreadListItem from "./ThreadListItem";
 import { changeWorkspace, changeChannel } from "../../redux/actionCreators";
 
-import getCurrentChannel from "../../redux/reducers/selectors/currentChannelSelector";
-
 const workspaceMenu = (workspaces, selectMenuItem) => (
   <Menu>
     {workspaces.map(workspace => (

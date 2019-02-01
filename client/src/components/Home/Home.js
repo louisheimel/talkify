@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Layout, Input } from "antd";
 import { postMessage } from "../../redux/actionCreators";
-import threadSelector from "../../redux/reducers/selectors/threadSelector";
 
 import Toggler from "./Toggler";
 import Threads from "./Threads";

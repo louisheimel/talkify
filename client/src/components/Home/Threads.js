@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import getCurrentWorkspace from "../../redux/reducers/selectors/currentWorkspaceSelector";
-import getCurrentMessages from "../../redux/reducers/selectors/currentMessagesSelector";
 import ThreadList from "./ThreadList";
 
 class Threads extends Component {
