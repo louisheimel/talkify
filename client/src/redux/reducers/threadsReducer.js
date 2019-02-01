@@ -7,10 +7,6 @@ const defaultStore = {
     options: [
       {
         name: "Fun"
-        // channels: {
-        //   label: "Channels",
-        //   messages: { general: [] }
-        // }
       },
       {
         name: "Work",
