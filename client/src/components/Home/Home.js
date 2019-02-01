@@ -123,8 +123,7 @@ export default connect(
   state => ({
     messages:
       state.threads.workspace.options &&
-      state.threads.workspace.options.messages &&
-      state.threads.workspace.options.messages.find(
+      state.threads.workspace.options.find(
         option => option.name === state.threads.workspace.current
       ).messages,
     namespace: state.threads.workspace.current,

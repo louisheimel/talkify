@@ -1,9 +1,7 @@
 const express = require("express"),
   bodyParser = require("body-parser");
 
-const app = express();
-const http = require("http").Server(app);
-const io = require("socket.io")(http);
+const io = require("socket.io")(3001);
 const middleware = require("socketio-wildcard")();
 
 io.use(middleware);
@@ -11,9 +9,8 @@ io.use(middleware);
 const messages = {};
 const API = require("./API");
 
-const listenForLogin = socket =>
+const listenForLogin = socket => {
   socket.on("user login", data => {
-    socket.emit("news", { hello: "world" });
     console.log("user data from socket: ", data);
     API.initAPI()
       .then(api => {
@@ -26,10 +23,12 @@ const listenForLogin = socket =>
         socket.emit("login failure");
       });
   });
+};
 
 io.on("connection", socket => {
   listenForLogin(socket);
   socket.on("*", packet => {
+    console.log("just received a message!");
     const [channel, message] = packet.data;
     if (channel !== "user login") {
       console.log("channel is: " + channel);
@@ -37,7 +36,7 @@ io.on("connection", socket => {
         ? messages[channel].concat(message)
         : [message];
       console.log(messages);
-      socket.emit(channel, messages[channel].slice(0, 100));
+      io.sockets.emit(channel, messages[channel].slice(0, 100));
     }
   });
 });
@@ -45,4 +44,3 @@ io.on("connection", socket => {
 io.on("disconnect", () => {
   console.log("user disconnected");
 });
-http.listen(process.env.PORT || 3001);

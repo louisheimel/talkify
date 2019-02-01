@@ -14,11 +14,15 @@ export const waitForSuccessfulLogin = loginData => socket => {
     socket.emit("user login", loginData);
     setTimeout(() => reject("login failure"), 5000);
     socket.on("Work/project channel", messages => {
-      false && console.log(messages + " from Work/project channel");
+      console.log(messages + " from Work/project channel");
       store.dispatch({ type: "NEW_MESSAGE", payload: messages });
     });
     socket.on("successful login", () => {
       resolve(socket);
+    });
+
+    socket.on("news", data => {
+      console.log("just received news on client side!");
     });
   });
 };
