@@ -42,7 +42,6 @@ function threadsReducer(state = defaultStore, action) {
     const changeChannelContents = () => {
       console.log(Object.keys(oldOption.channels.messages), channel);
       if (Object.keys(oldOption.channels.messages).includes(channel)) {
-        // TODO: return something here
         return {
           channels: {
             ...oldOption.channels,
@@ -56,7 +55,6 @@ function threadsReducer(state = defaultStore, action) {
       } else if (
         Object.keys(oldOption.directMessages.messages).includes(channel)
       ) {
-        // TODO: return something here
         return {
           channels: oldOption.channels,
           directMessages: {
