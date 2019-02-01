@@ -34,23 +34,27 @@ function threadsReducer(state = defaultStore, action) {
     state.workspace.options.filter(
       option => option.name !== state.workspace.current
     );
-  const currentOption = () => ({
+  const currentOption = messages => ({
     ...state.workspace.options.find(
       option => option.name === state.workspace.current
     ),
-    messages: payload
+    messages
   });
-  const makeNewOptions = () => [...otherOptions(), currentOption()];
+  const makeNewOptions = (messages, payload) => [
+    ...otherOptions(),
+    currentOption(messages)
+  ];
   switch (type) {
     case CHANGE_WORKSPACE:
       return { ...state, workspace: { ...state.workspace, current: payload } };
     case NEW_MESSAGE:
-      console.log("hello from threadsReducer line 39", payload);
+      const { messages, channel } = payload;
+      console.log("hello from threadsReducer line 39", messages);
       return {
         ...state,
         workspace: {
           ...state.workspace,
-          options: [...makeNewOptions()]
+          options: [...makeNewOptions(messages, channel)]
         }
       };
     case CHANGE_CHANNEL:
