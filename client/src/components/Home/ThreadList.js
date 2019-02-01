@@ -47,6 +47,7 @@ class ThreadList extends Component {
           selected={option === currentChannel}
           thread={option}
           changeChannel={handleChannelChange}
+          key={option}
         />
       ));
 

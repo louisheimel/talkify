@@ -31,12 +31,14 @@ io.on("connection", socket => {
   listenForLogin(socket);
   socket.on("*", packet => {
     const [channel, message] = packet.data;
-    console.log("channel is: " + channel);
-    messages[channel] = messages[channel]
-      ? messages[channel].concat(message)
-      : [message];
-    console.log(messages);
-    socket.emit(channel, messages[channel].slice(0, 100));
+    if (channel !== "user login") {
+      console.log("channel is: " + channel);
+      messages[channel] = messages[channel]
+        ? messages[channel].concat(message)
+        : [message];
+      console.log(messages);
+      socket.emit(channel, messages[channel].slice(0, 100));
+    }
   });
 });
 
