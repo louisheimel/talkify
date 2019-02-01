@@ -1,6 +1,3 @@
-const express = require("express"),
-  bodyParser = require("body-parser");
-
 const io = require("socket.io")(3001);
 const middleware = require("socketio-wildcard")();
 
