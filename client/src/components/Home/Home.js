@@ -127,11 +127,21 @@ export default connect(
       const currentChannel = currentWorkspace.currentChannel;
       var messages;
       if (
+        currentWorkspace.channels &&
+        currentWorkspace.channels.messages &&
         Object.keys(currentWorkspace.channels.messages).includes(currentChannel)
       ) {
         messages = currentWorkspace.channels.messages[currentChannel];
-      } else {
+      } else if (
+        currentWorkspace.directMessages &&
+        currentWorkspace.directMessages.messages &&
+        Object.keys(currentWorkspace.directMessages.messages).includes(
+          currentChannel
+        )
+      ) {
         messages = currentWorkspace.directMessages.messages[currentChannel];
+      } else {
+        messages = [];
       }
       console.log(currentWorkspace, currentChannel, messages);
       return messages;
