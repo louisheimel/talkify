@@ -120,11 +120,28 @@ class Home extends Component {
 
 export default connect(
   state => ({
-    messages:
-      state.threads.workspace.options &&
-      state.threads.workspace.options.find(
+    messages: (() => {
+      const currentWorkspace = state.threads.workspace.options.find(
         option => option.name === state.threads.workspace.current
-      ).messages,
+      );
+      const currentChannel = currentWorkspace.currentChannel;
+      var messages;
+      if (
+        Object.keys(currentWorkspace.channels.messages).includes(currentChannel)
+      ) {
+        messages = currentWorkspace.channels.messages[currentChannel];
+      } else {
+        messages = currentWorkspace.directMessages.messages[currentChannel];
+      }
+      console.log(currentWorkspace, currentChannel, messages);
+      return messages;
+    })(),
+    //(
+    // state.threads.options.find(option => option.name === state.threads.workspace.current)[state.threads.workspace]
+    //   state.threads.workspace.options &&
+    //   state.threads.workspace.options.find(
+    //     option => option.name === state.threads.workspace.current
+    //   ).messages,
     namespace: state.threads.workspace.current,
     room:
       state.threads.workspace.options &&
