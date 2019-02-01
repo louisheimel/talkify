@@ -146,12 +146,6 @@ export default connect(
       console.log(currentWorkspace, currentChannel, messages);
       return messages;
     })(),
-    //(
-    // state.threads.options.find(option => option.name === state.threads.workspace.current)[state.threads.workspace]
-    //   state.threads.workspace.options &&
-    //   state.threads.workspace.options.find(
-    //     option => option.name === state.threads.workspace.current
-    //   ).messages,
     namespace: state.threads.workspace.current,
     room:
       state.threads.workspace.options &&
