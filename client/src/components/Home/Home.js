@@ -101,7 +101,6 @@ class Home extends Component {
           <Toggler toggle={this.toggle} collapsed={collapsed} />
         </Sider>
         <Content style={contentStyles}>
-          <code>{JSON.stringify(store)}</code>
           <Messages style={messagesStyles} messages={messages} />
           <TextArea
             style={inputStyles}
