@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Layout, Input } from "antd";
+
+import axios from "axios";
+
 import { postMessage } from "../../redux/actionCreators";
 
 import Toggler from "./Toggler";
@@ -8,15 +11,50 @@ import Threads from "./Threads";
 
 const { TextArea } = Input;
 const { Sider, Content } = Layout;
+class Giphy extends Component {
+  makeSearchString = query =>
+    `http://api.giphy.com/v1/gifs/search?api_key=${
+      process.env.REACT_APP_GIPHY_APIKEY
+    }&q=${query}&limit=1`;
+  getUrl() {
+    axios
+      .get(this.makeSearchString(this.props.search))
+      .then(data =>
+        this.setState({ data, gifUrl: data.data.data[0].images.original.url })
+      );
+  }
+
+  render() {
+    this.getUrl();
+    return (
+      this.state && (
+        <img
+          src={this.state.gifUrl}
+          style={{ width: "300px", display: "block", margin: "30px 0" }}
+        />
+      )
+    );
+  }
+}
 
 class Messages extends Component {
+  isGiphyInvocation = message => message.split(" ")[0] === "/giphy";
+  getGiphySearch = message =>
+    message
+      .split(" ")
+      .slice(1)
+      .join(" ");
   render() {
     const { messages, style } = this.props;
     return (
       <div style={style}>
-        {(messages || []).map(message => (
-          <p style={{ width: "100%" }}>{message}</p>
-        ))}
+        {(messages || []).map(message =>
+          this.isGiphyInvocation(message) ? (
+            <Giphy search={this.getGiphySearch(message)} />
+          ) : (
+            <p style={{ width: "100%" }}>{message}</p>
+          )
+        )}
       </div>
     );
   }
